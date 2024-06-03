@@ -8,6 +8,11 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".fragment.EarthquakeListFragment">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/earthquake_list"

@@ -4,16 +4,13 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.example.earthquakeqazaqedition.R
 import com.example.earthquakeqazaqedition.databinding.EarthquakeItemBinding
 import com.example.earthquakeqazaqedition.model.Earthquake
-import com.example.earthquakeqazaqedition.model.EarthquakeResponse
 
-
-
-class EarthquakeAdapter : ListAdapter<EarthquakeResponse, EarthquakeAdapter.ViewHolder>(EarthquakeDiffUtil()) {
+class EarthquakeAdapter : ListAdapter<Earthquake, EarthquakeAdapter.ViewHolder>(EarthquakeDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         return ViewHolder(
             EarthquakeItemBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -21,7 +18,6 @@ class EarthquakeAdapter : ListAdapter<EarthquakeResponse, EarthquakeAdapter.View
                 false
             )
         )
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,8 +27,11 @@ class EarthquakeAdapter : ListAdapter<EarthquakeResponse, EarthquakeAdapter.View
     inner class ViewHolder(private val binding: EarthquakeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val context = binding.root.context
-        fun bind(earthquake: EarthquakeResponse){
-            binding.magnituda.text = earthquake.features.toString()
+        fun bind(earthquake: Earthquake) {
+            with(binding) {
+                magnituda.text = earthquake.properties.mag.toString()
+                location.text = earthquake.properties.place
+            }
         }
     }
 }

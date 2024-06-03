@@ -1,68 +1,54 @@
-package com.example.earthquakeqazaqedition.fragment
+package com.example.earthquakeqazaqedition.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.earthquakeqazaqedition.adapter.EarthquakeAdapter
 import com.example.earthquakeqazaqedition.databinding.FragmentEarthquakeListBinding
-import com.example.earthquakeqazaqedition.model.Earthquake
-import com.example.earthquakeqazaqedition.model.EarthquakeResponse
 import com.example.earthquakeqazaqedition.network.ApiClient
+import com.example.earthquakeqazaqedition.viewmodel.EarthquakeListState
+import com.example.earthquakeqazaqedition.viewmodel.EarthquakeListViewModel
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
-/**
- * A fragment representing a list of Items.
- */
 class EarthquakeListFragment : Fragment() {
-    companion object {
-        fun newInstance() = EarthquakeListFragment()
+
+    private lateinit var binding: FragmentEarthquakeListBinding
+    private val viewModel: EarthquakeListViewModel by lazy {
+        ViewModelProvider(
+            this,
+            EarthquakeListViewModel.Provider(service = ApiClient.apiService)
+        ).get<EarthquakeListViewModel>(EarthquakeListViewModel::class.java)
 
     }
-    private var _binding : FragmentEarthquakeListBinding? = null
-    private val binding get() = _binding!!
-    private val adapter by lazy {
-        EarthquakeAdapter()
-    }
+    private var earthquakeAdapter: EarthquakeAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEarthquakeListBinding.inflate(inflater, container, false)
+        binding = FragmentEarthquakeListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupUI()
-        getEarthquakes()
+        earthquakeAdapter = EarthquakeAdapter()
+        binding.earthquakeList.adapter = earthquakeAdapter
+        observeViewModel()
+        viewModel.fetchEarthquakes()
     }
-    private fun setupUI(){
-        with(binding) {
-            earthquakeList.adapter = this@EarthquakeListFragment.adapter
+
+    private fun observeViewModel() {
+        viewModel.earthquakeListState.observe(viewLifecycleOwner) { earthquakes ->
+            when (earthquakes) {
+                is EarthquakeListState.Success -> {
+                    earthquakeAdapter?.submitList(earthquakes.items)
+                }
+
+                else -> {}
+            }
         }
     }
-    private fun getEarthquakes() {
-        ApiClient.apiService.fetchEarthquakes().enqueue(object : Callback<List<EarthquakeResponse>> {
-            override fun onResponse(call: Call<List<EarthquakeResponse>>, response: Response<List<EarthquakeResponse>>) {
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    println(data)
-                    data?.let {
-                        adapter.submitList(it)
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<EarthquakeResponse>>, t: Throwable) {
-            }
-        })
-    }
-
-
 }
