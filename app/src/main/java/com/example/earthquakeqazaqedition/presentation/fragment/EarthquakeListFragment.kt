@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.earthquakeqazaqedition.adapter.EarthquakeAdapter
+import com.example.earthquakeqazaqedition.presentation.adapter.EarthquakeAdapter
 import com.example.earthquakeqazaqedition.databinding.FragmentEarthquakeListBinding
-import com.example.earthquakeqazaqedition.network.ApiClient
-import com.example.earthquakeqazaqedition.viewmodel.EarthquakeListState
-import com.example.earthquakeqazaqedition.viewmodel.EarthquakeListViewModel
+import com.example.earthquakeqazaqedition.data.network.ApiClient
+import com.example.earthquakeqazaqedition.presentation.viewmodel.EarthquakeListState
+import com.example.earthquakeqazaqedition.presentation.viewmodel.EarthquakeListViewModel
 
 class EarthquakeListFragment : Fragment() {
 
@@ -34,10 +34,13 @@ class EarthquakeListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        earthquakeAdapter = EarthquakeAdapter()
-        binding.earthquakeList.adapter = earthquakeAdapter
+        setupUI()
         observeViewModel()
         viewModel.fetchEarthquakes()
+    }
+    private fun setupUI(){
+        earthquakeAdapter = EarthquakeAdapter()
+        binding.earthquakeList.adapter = earthquakeAdapter
     }
 
     private fun observeViewModel() {

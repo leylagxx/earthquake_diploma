@@ -1,4 +1,4 @@
-package com.example.earthquakeqazaqedition.activity
+package com.example.earthquakeqazaqedition.presentation.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,7 +8,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.earthquakeqazaqedition.R
 import com.example.earthquakeqazaqedition.databinding.ActivityMainBinding
+import com.example.earthquakeqazaqedition.presentation.fragment.LoginFragment
+import com.example.earthquakeqazaqedition.presentation.fragment.MapsFragment
 import com.example.earthquakeqazaqedition.ui.EarthquakeListFragment
+import com.google.firebase.FirebaseApp
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(EarthquakeListFragment())
@@ -25,8 +29,8 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(EarthquakeListFragment())
                     true
                 }
-                R.id.home -> {
-                    replaceFragment(EarthquakeListFragment())
+                R.id.profile -> {
+                    replaceFragment(LoginFragment())
                     true
                 }
                 else -> true

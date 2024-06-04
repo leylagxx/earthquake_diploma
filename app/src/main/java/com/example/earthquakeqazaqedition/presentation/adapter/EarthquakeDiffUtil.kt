@@ -1,7 +1,7 @@
-package com.example.earthquakeqazaqedition.adapter
+package com.example.earthquakeqazaqedition.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.earthquakeqazaqedition.model.Earthquake
+import com.example.earthquakeqazaqedition.data.model.Earthquake
 
 class EarthquakeDiffUtil : DiffUtil.ItemCallback<Earthquake>(){
     override fun areItemsTheSame(oldItem: Earthquake, newItem: Earthquake): Boolean {

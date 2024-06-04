@@ -1,4 +1,4 @@
-package com.example.earthquakeqazaqedition.adapter
+package com.example.earthquakeqazaqedition.presentation.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.earthquakeqazaqedition.R
 import com.example.earthquakeqazaqedition.databinding.EarthquakeItemBinding
-import com.example.earthquakeqazaqedition.model.Earthquake
+import com.example.earthquakeqazaqedition.data.model.Earthquake
 
 class EarthquakeAdapter : ListAdapter<Earthquake, EarthquakeAdapter.ViewHolder>(EarthquakeDiffUtil()) {
 

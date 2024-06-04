@@ -1,4 +1,4 @@
-package com.example.earthquakeqazaqedition.model
+package com.example.earthquakeqazaqedition.data.model
 
 import com.google.gson.annotations.SerializedName
 

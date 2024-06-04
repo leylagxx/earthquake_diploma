@@ -31,12 +31,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="YOUR_API_KEY" />
         <service
-            android:name=".network.ApiService"
+            android:name=".data.network.ApiService"
             android:enabled="true"
             android:exported="true"></service>
 
+
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".presentation.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

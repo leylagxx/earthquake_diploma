@@ -1,4 +1,4 @@
-package com.example.earthquakeqazaqedition.model
+package com.example.earthquakeqazaqedition.data.model
 
 data class Earthquake(
     val id: String,

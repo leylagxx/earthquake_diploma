@@ -4,7 +4,7 @@
         android:id="@+id/list_all"
         android:icon="@drawable/baseline_list_alt_24"/>
     <item android:title="profile"
-        android:id="@+id/home"
+        android:id="@+id/profile"
         android:icon="@drawable/baseline_adf_scanner_24"/>
 
 </menu>

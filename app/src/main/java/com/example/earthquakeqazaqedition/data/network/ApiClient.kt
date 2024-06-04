@@ -1,4 +1,4 @@
-package com.example.earthquakeqazaqedition.network
+package com.example.earthquakeqazaqedition.data.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

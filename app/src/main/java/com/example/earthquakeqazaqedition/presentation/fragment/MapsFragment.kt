@@ -1,4 +1,4 @@
-package com.example.earthquakeqazaqedition.fragment
+package com.example.earthquakeqazaqedition.presentation.fragment
 
 import androidx.fragment.app.Fragment
 

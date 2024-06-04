@@ -2,7 +2,10 @@
     <string name="app_name">EarthquakeQazaqEdition</string>
     <string name="magnitude_format">M %1$.1f</string>
     <string name="error_message">Bimedim tamyr</string>
-    <!-- Strings related to login -->
+    <string name="prompt_username">Username</string>
+    <string name="sign_in_button">Sign In</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="head_login">Login</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -11,4 +14,5 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="no_account">Don\'t have an account?</string>
 </resources>
