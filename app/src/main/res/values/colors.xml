@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="navbar">#C03392FF</color>
     <color name="blue">#A8072945</color>
+    <color name = "gray">#FFE0E0E0</color>
 </resources>

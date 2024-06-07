@@ -5,8 +5,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("summary/all_hour.geojson")
+    @GET("query")
     suspend fun fetchEarthquakes(
+        @Query("format") format: String = "geojson",
+        @Query("eventtype") eventtype: String = "earthquake",
+        @Query("limit") limit: Int,
+        @Query("orderby") orderby: String = "time"
     ): EarthquakeResponse
-
 }

@@ -7,25 +7,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
     private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor { chain ->
-            val request = chain.request()
-
-            val newRequest = request.newBuilder()
-                .build()
-            chain.proceed(newRequest)
-        }
-        .addInterceptor(
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-        )
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://earthquake.usgs.gov/earthquakes/feed/v1.0/")
+        .baseUrl("https://earthquake.usgs.gov/fdsnws/event/1/")
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val apiService = retrofit.create(ApiService::class.java)
-
-
+    val apiService: ApiService = retrofit.create(ApiService::class.java)
 }

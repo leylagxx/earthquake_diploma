@@ -22,7 +22,25 @@ data class Feature(
     }
 }
 
+
 data class EarthquakeResponse(
     @SerializedName("features")
-    val features: List<Feature>
+    val features: List<Feature>,
+    @SerializedName("metadata")
+    val metadata: Metadata
+)
+
+data class Metadata(
+    @SerializedName("generated")
+    val generated: Long,
+    @SerializedName("url")
+    val url: String,
+    @SerializedName("title")
+    val title: String,
+    @SerializedName("api")
+    val api: String,
+    @SerializedName("count")
+    val count: Int,
+    @SerializedName("status")
+    val status: Int
 )

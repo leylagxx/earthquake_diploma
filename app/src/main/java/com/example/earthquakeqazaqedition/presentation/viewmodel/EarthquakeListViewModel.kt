@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.earthquakeqazaqedition.data.model.Earthquake
 import com.example.earthquakeqazaqedition.data.model.Feature
 import com.example.earthquakeqazaqedition.data.network.ApiService
+import com.google.api.Endpoint
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,18 +29,33 @@ class EarthquakeListViewModel(private val service: ApiService) : ViewModel() {
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
     }
 
+
     fun fetchEarthquakes() {
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             try {
-                val response = service.fetchEarthquakes()
+                val response = service.fetchEarthquakes(limit = 6)
                 val earthquakeList = response.features.map { Feature.toEarthquake(it) }
                 withContext(Dispatchers.Main) {
                     _earthquakeListState.value = EarthquakeListState.Success(earthquakeList)
                 }
             } catch (e: Exception) {
+                _earthquakeListState.value = EarthquakeListState.Error(e.message ?: "Unknown error")
             }
         }
     }
+
+//    fun filterEarthquakes(endpoint: String) {
+//        viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+//            try {
+//                val response = service.filterEarthquakes(endpoint)
+//                val earthquakeList = response.features.map { Feature.toEarthquake(it) }
+//                withContext(Dispatchers.Main) {
+//                    _earthquakeListState.value = EarthquakeListState.Success(earthquakeList.take(10))
+//                }
+//            } catch (e: Exception) {
+//            }
+//        }
+//    }
 }
 sealed class EarthquakeListState {
 

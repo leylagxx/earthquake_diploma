@@ -37,6 +37,7 @@ class EarthquakeListFragment : Fragment() {
         setupUI()
         observeViewModel()
         viewModel.fetchEarthquakes()
+
     }
     private fun setupUI(){
         earthquakeAdapter = EarthquakeAdapter()
@@ -49,9 +50,9 @@ class EarthquakeListFragment : Fragment() {
                 is EarthquakeListState.Success -> {
                     earthquakeAdapter?.submitList(earthquakes.items)
                 }
-
                 else -> {}
             }
         }
     }
+
 }

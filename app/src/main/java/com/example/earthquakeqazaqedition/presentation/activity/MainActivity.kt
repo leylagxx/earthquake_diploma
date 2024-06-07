@@ -11,6 +11,8 @@ import com.example.earthquakeqazaqedition.databinding.ActivityMainBinding
 import com.example.earthquakeqazaqedition.presentation.fragment.LoginFragment
 import com.example.earthquakeqazaqedition.presentation.fragment.MapsFragment
 import com.example.earthquakeqazaqedition.ui.EarthquakeListFragment
+import com.example.earthquakeqazaqedition.ui.FilterBottomSheetFragment
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.firebase.FirebaseApp
 
 
@@ -23,6 +25,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(EarthquakeListFragment())
+        binding.filterButton.setOnClickListener {
+            val filterFragment = FilterBottomSheetFragment()
+            filterFragment.show(supportFragmentManager, FilterBottomSheetFragment.TAG)
+        }
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.list_all -> {
