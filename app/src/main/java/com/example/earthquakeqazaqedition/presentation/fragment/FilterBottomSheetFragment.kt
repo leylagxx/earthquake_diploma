@@ -1,4 +1,4 @@
-package com.example.earthquakeqazaqedition.ui
+package com.example.earthquakeqazaqedition.presentation.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -6,19 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
-import androidx.core.view.children
-import androidx.fragment.app.Fragment
+import com.example.earthquakeqazaqedition.R
 import com.example.earthquakeqazaqedition.databinding.FragmentFilterBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
+
 
 class FilterBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentFilterBottomSheetBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +24,47 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     ): View {
         _binding = FragmentFilterBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferences = requireContext().getSharedPreferences(
+            "filter_prefs",
+            Context.MODE_PRIVATE
+        )
+
+        setupRadioButtons()
+        setupFilterButton()
+    }
+
+    private fun setupRadioButtons() {
+        val selectedFilter = sharedPreferences.getString("selected_filter", "all") ?: "all"
+
+        when (selectedFilter) {
+            "all" -> binding.radioAllEarthquakes.isChecked = true
+            "m1" -> binding.radioM1Earthquakes.isChecked = true
+            "m25" -> binding.radioM25Earthquakes.isChecked = true
+            "m45" -> binding.radioM45Earthquakes.isChecked = true
+        }
+    }
+
+    private fun setupFilterButton() {
+        binding.btnFilter.setOnClickListener {
+            val selectedFilter = when (binding.magFilter.checkedRadioButtonId) {
+                R.id.radioAllEarthquakes -> "all"
+                R.id.radioM1Earthquakes -> "m1"
+                R.id.radioM25Earthquakes -> "m25"
+                R.id.radioM45Earthquakes -> "m45"
+                else -> "all"
+            }
+
+            with(sharedPreferences.edit()) {
+                putString("selected_filter", selectedFilter)
+                apply()
+            }
+            dismiss()
+        }
     }
 
     override fun onDestroyView() {

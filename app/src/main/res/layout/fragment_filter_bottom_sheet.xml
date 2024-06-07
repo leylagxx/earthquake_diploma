@@ -17,103 +17,42 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time Pass"
+            android:text="Magnitude"
             android:textStyle="bold" />
 
-        <!-- Используем ChipGroup вместо RadioGroup -->
-        <com.google.android.material.chip.ChipGroup
+        <RadioGroup
+            android:id="@+id/mag_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            >
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPastHour"
+            <RadioButton
+                android:id="@+id/radioAllEarthquakes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Past Hour"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="1dp"
-                app:checkedIconVisible="false" />
+                android:text="All Earthquakes" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPastDay"
+            <RadioButton
+                android:id="@+id/radioM1Earthquakes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Past Day"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="1dp"
-                app:checkedIconVisible="false" />
+                android:text="M1.0+ Earthquakes" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPast7Days"
+            <RadioButton
+                android:id="@+id/radioM25Earthquakes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Past 7 Days"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="1dp"
-                app:checkedIconVisible="false" />
+                android:text="M2.5+ Earthquakes" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPast30Days"
+            <RadioButton
+                android:id="@+id/radioM45Earthquakes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Past 30 Days"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="1dp"
-                app:checkedIconVisible="false" />
-        </com.google.android.material.chip.ChipGroup>
+                android:text="M4.5+ Earthquakes" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Richter Scale"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
+        </RadioGroup>
 
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipAllEarthquakes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All Earthquakes"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="1dp"
-                app:checkedIconVisible="false"
-          />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipM1Earthquakes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="M1.0+ Earthquakes"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="1dp"
-                app:checkedIconVisible="false"
-             />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipM25Earthquakes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="M2.5+ Earthquakes"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="1dp"
-                app:checkedIconVisible="false"
-               />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipM45Earthquakes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="M4.5+ Earthquakes"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="1dp"
-                app:checkedIconVisible="false" />
-        </com.google.android.material.chip.ChipGroup>
 
         <Button
             android:id="@+id/btnFilter"

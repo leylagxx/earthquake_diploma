@@ -8,10 +8,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.earthquakeqazaqedition.R
 import com.example.earthquakeqazaqedition.databinding.ActivityMainBinding
+import com.example.earthquakeqazaqedition.presentation.fragment.EarthquakeListFragment
+import com.example.earthquakeqazaqedition.presentation.fragment.FilterBottomSheetFragment
 import com.example.earthquakeqazaqedition.presentation.fragment.LoginFragment
 import com.example.earthquakeqazaqedition.presentation.fragment.MapsFragment
-import com.example.earthquakeqazaqedition.ui.EarthquakeListFragment
-import com.example.earthquakeqazaqedition.ui.FilterBottomSheetFragment
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.firebase.FirebaseApp
 

@@ -10,6 +10,8 @@ interface ApiService {
         @Query("format") format: String = "geojson",
         @Query("eventtype") eventtype: String = "earthquake",
         @Query("limit") limit: Int,
-        @Query("orderby") orderby: String = "time"
-    ): EarthquakeResponse
+        @Query("offset") offset: Int,
+        @Query("minmagnitude") minmagnitude: Int
+
+        ): EarthquakeResponse
 }
