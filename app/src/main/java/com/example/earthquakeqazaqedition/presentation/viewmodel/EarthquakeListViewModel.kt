@@ -1,22 +1,14 @@
 package com.example.earthquakeqazaqedition.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.earthquakeqazaqedition.data.model.Earthquake
 import com.example.earthquakeqazaqedition.data.model.Feature
 import com.example.earthquakeqazaqedition.data.network.ApiService
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class EarthquakeListViewModel(private val service: ApiService) : ViewModel() {
     private var currentOffset = 1
-    private val itemsPerPage = 3
+    private val itemsPerPage = 8
 
     private val _loadedItems = mutableListOf<Earthquake>()
     private var isLoading = false
@@ -28,80 +20,71 @@ class EarthquakeListViewModel(private val service: ApiService) : ViewModel() {
     val isLoadingMoreItems: LiveData<Boolean> get() = _isLoadingMoreItems
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
-        // Handle exceptions here if needed
     }
-
-    fun fetchEarthquakes() {
-        if (isLoading) return
-
-        isLoading = true
-        _earthquakeListState.value = EarthquakeListState.Loading(true)
-
+    private fun fetchEarthquakesInternal(offset: Int) {
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             try {
-                val response = async {
-                    service.fetchEarthquakes(
-                        limit = itemsPerPage,
-                        offset = currentOffset,
-                        minmagnitude = 0
-                    )
-                }
-                val earthquakeList = response.await().features.map { Feature.toEarthquake(it) }
-                currentOffset += itemsPerPage
-
+                val response = service.fetchEarthquakes(
+                    limit = itemsPerPage,
+                    offset = offset,
+                    minmagnitude = 0.0
+                )
+                val earthquakeList = response.features.map { Feature.toEarthquake(it) }
                 _loadedItems.addAll(earthquakeList)
 
                 withContext(Dispatchers.Main) {
                     _earthquakeListState.value = EarthquakeListState.Success(_loadedItems)
-                    _earthquakeListState.postValue(EarthquakeListState.Loading(false))
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     _earthquakeListState.value = EarthquakeListState.Error(e.message)
                 }
             } finally {
-                _isLoadingMoreItems.postValue(false)
-                isLoading = false
+                withContext(Dispatchers.Main) {
+                    _isLoadingMoreItems.value = false
+                    isLoading = false
+                }
             }
         }
+    }
+    fun fetchEarthquakes() {
+        if (isLoading) return
+        isLoading = true
+        _earthquakeListState.value = EarthquakeListState.Loading(true)
+        _isLoadingMoreItems.value = true
+        fetchEarthquakesInternal(currentOffset)
+        currentOffset += itemsPerPage
     }
 
     fun loadMoreItems() {
         if (isLoading) return
 
         isLoading = true
-        _isLoadingMoreItems.postValue(true)
+        _isLoadingMoreItems.value = true
 
+        fetchEarthquakesInternal(currentOffset)
+        currentOffset += itemsPerPage
+    }
+    fun filterEarthquakes(filter: String) {
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             try {
-                val response = async {
-                    service.fetchEarthquakes(
-                        limit = itemsPerPage,
-                        offset = currentOffset,
-                        minmagnitude = 0
-                    )
+                val response = when (filter) {
+                    "m1" -> service.fetchEarthquakes(limit = itemsPerPage, offset = 1, minmagnitude = 1.0)
+                    "m25" -> service.fetchEarthquakes( limit = itemsPerPage, offset = 1, minmagnitude = 2.5)
+                    "m45" -> service.fetchEarthquakes( limit = itemsPerPage, offset = 1, minmagnitude = 4.5)
+                    else -> service.fetchEarthquakes(limit = itemsPerPage, offset = 1, minmagnitude = 0.0)
                 }
-                val earthquakeList = response.await().features.map { Feature.toEarthquake(it) }
-                currentOffset += itemsPerPage
-
-                _loadedItems.addAll(earthquakeList)
-
+                val earthquakeList = response.features.map { Feature.toEarthquake(it) }
                 withContext(Dispatchers.Main) {
-                    _earthquakeListState.value = EarthquakeListState.Success(_loadedItems)
-                    _earthquakeListState.postValue(EarthquakeListState.Loading(false))
+                    _earthquakeListState.value = EarthquakeListState.Success(earthquakeList)
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    _earthquakeListState.value = EarthquakeListState.Error(e.message)
-                }
-            } finally {
-                _isLoadingMoreItems.postValue(false)
-                isLoading = false
+                _earthquakeListState.value = EarthquakeListState.Error(e.message ?: "Unknown error")
             }
         }
     }
 
-    // Другие методы, если есть
+
 
     class Provider(private val service: ApiService) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
@@ -109,6 +92,7 @@ class EarthquakeListViewModel(private val service: ApiService) : ViewModel() {
             return EarthquakeListViewModel(service) as T
         }
     }
+
 }
 
 sealed class EarthquakeListState {

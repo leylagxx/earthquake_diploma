@@ -11,7 +11,6 @@ interface ApiService {
         @Query("eventtype") eventtype: String = "earthquake",
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
-        @Query("minmagnitude") minmagnitude: Int
-
+        @Query("minmagnitude") minmagnitude: Double
         ): EarthquakeResponse
 }

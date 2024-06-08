@@ -52,22 +52,19 @@ class EarthquakeAdapter : ListAdapter<Earthquake, RecyclerView.ViewHolder>(Earth
         }
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ViewHolder){
-            return holder.bind(getItem(position))
+        if (holder is ViewHolder) {
+            holder.bind(getItem(position))
         }
     }
-
-
 
     inner class ViewHolder(private val binding: EarthquakeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val context = binding.root.context
-
         fun bind(earthquake: Earthquake) {
             with(binding) {
-                magnituda.text = "M ${earthquake.properties.mag.toString()}"
+                val mag = "%.2f".format(earthquake.properties.mag)
+                magnituda.text = "M ${mag}"
                 location.text = earthquake.properties.place
                 val calendar = Calendar.getInstance()
                 calendar.timeInMillis = earthquake.properties.time
@@ -76,5 +73,6 @@ class EarthquakeAdapter : ListAdapter<Earthquake, RecyclerView.ViewHolder>(Earth
             }
         }
     }
+
     class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }

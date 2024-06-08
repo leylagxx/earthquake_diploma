@@ -39,7 +39,7 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupRadioButtons() {
-        val selectedFilter = sharedPreferences.getString("selected_filter", "all") ?: "all"
+        val selectedFilter = sharedPreferences.getString("selected_filter", "m45") ?: "m45"
 
         when (selectedFilter) {
             "all" -> binding.radioAllEarthquakes.isChecked = true
@@ -65,11 +65,6 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
             }
             dismiss()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {
