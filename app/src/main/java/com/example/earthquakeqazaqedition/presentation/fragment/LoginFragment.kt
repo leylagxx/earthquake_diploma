@@ -67,11 +67,7 @@ class LoginFragment : Fragment() {
     }
     private fun replaceFragment(fragment: Fragment) {
 
-        parentFragmentManager.popBackStack()
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
-            .addToBackStack(null)
-            .commitAllowingStateLoss()
+
 
     }
 

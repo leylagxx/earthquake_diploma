@@ -8,7 +8,14 @@ import kotlinx.coroutines.*
 
 class EarthquakeListViewModel(private val service: ApiService) : ViewModel() {
     private var currentOffset = 1
-    private val itemsPerPage = 8
+    private val itemsPerPage = 6
+    private var magnitudeFilter: Double = 0.0
+    class Provider(private val service: ApiService) : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return EarthquakeListViewModel(service) as T
+        }
+    }
 
     private val _loadedItems = mutableListOf<Earthquake>()
     private var isLoading = false
@@ -65,34 +72,49 @@ class EarthquakeListViewModel(private val service: ApiService) : ViewModel() {
         fetchEarthquakesInternal(currentOffset)
         currentOffset += itemsPerPage
     }
-    fun filterEarthquakes(filter: String) {
+    private fun fetchEarthquakesInternal(offset: Int, magnitude: Double) {
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             try {
-                val response = when (filter) {
-                    "m1" -> service.fetchEarthquakes(limit = itemsPerPage, offset = 1, minmagnitude = 1.0)
-                    "m25" -> service.fetchEarthquakes( limit = itemsPerPage, offset = 1, minmagnitude = 2.5)
-                    "m45" -> service.fetchEarthquakes( limit = itemsPerPage, offset = 1, minmagnitude = 4.5)
-                    else -> service.fetchEarthquakes(limit = itemsPerPage, offset = 1, minmagnitude = 0.0)
-                }
+                val response = service.fetchEarthquakes(
+                        limit = itemsPerPage,
+                        offset = offset,
+                        minmagnitude = magnitude
+                )
                 val earthquakeList = response.features.map { Feature.toEarthquake(it) }
+                _loadedItems.addAll(earthquakeList)
+
                 withContext(Dispatchers.Main) {
-                    _earthquakeListState.value = EarthquakeListState.Success(earthquakeList)
+                    _earthquakeListState.value = EarthquakeListState.Success(_loadedItems)
                 }
             } catch (e: Exception) {
-                _earthquakeListState.value = EarthquakeListState.Error(e.message ?: "Unknown error")
+                withContext(Dispatchers.Main) {
+                    _earthquakeListState.value = EarthquakeListState.Error(e.message)
+                }
+            } finally {
+                withContext(Dispatchers.Main) {
+                    _isLoadingMoreItems.value = false
+                    isLoading = false
+                }
             }
         }
+
     }
 
-
-
-    class Provider(private val service: ApiService) : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return EarthquakeListViewModel(service) as T
-        }
+    fun fetchEarthquakes(magnitude: Double) {
+        if (isLoading) return
+        isLoading = true
+        _earthquakeListState.value = EarthquakeListState.Loading(true)
+        _isLoadingMoreItems.value = true
+        fetchEarthquakesInternal(currentOffset, magnitude)
+        currentOffset += itemsPerPage
+    }
+    fun setMagnitudeFilter(magnitude: Double) {
+        magnitudeFilter = magnitude
     }
 
+    fun applyFilters() {
+        fetchEarthquakes(magnitudeFilter)
+    }
 }
 
 sealed class EarthquakeListState {

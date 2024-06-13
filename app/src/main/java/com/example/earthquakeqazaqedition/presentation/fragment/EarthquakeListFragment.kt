@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.earthquakeqazaqedition.R
 import com.example.earthquakeqazaqedition.data.network.ApiClient
 import com.example.earthquakeqazaqedition.presentation.adapter.EarthquakeAdapter
 import com.example.earthquakeqazaqedition.databinding.FragmentEarthquakeListBinding
@@ -25,9 +27,14 @@ class EarthquakeListFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var filterBinding: FragmentFilterBottomSheetBinding
 
+    companion object {
+        private const val PREFS_NAME = "filter_prefs"
+        private const val PREF_KEY_MAGNITUDE = "pref_key_magnitude"
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = FragmentEarthquakeListBinding.inflate(inflater, container, false)
         filterBinding = FragmentFilterBottomSheetBinding.inflate(inflater, container, false)
@@ -41,13 +48,31 @@ class EarthquakeListFragment : Fragment() {
         observeViewModel()
         fetchEarthquakes()
         setupScrollListener()
-        setupFilterButton()
+
+        binding.filterButton.setOnClickListener {
+            val filterFragment = FilterBottomSheetFragment()
+            filterFragment.show(parentFragmentManager, FilterBottomSheetFragment.TAG)
+        }
+
+        parentFragmentManager.addFragmentOnAttachListener { fragmentManager, fragment ->
+            if (fragment is FilterBottomSheetFragment) {
+                fragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
+                    override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
+                        super.onFragmentDetached(fm, f)
+                        if (f is FilterBottomSheetFragment) {
+                            fetchEarthquakes()
+                            fm.unregisterFragmentLifecycleCallbacks(this)
+                        }
+                    }
+                }, false)
+            }
+        }
     }
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(
-            this,
-            EarthquakeListViewModel.Provider(service = ApiClient.apiService)
+                this,
+                EarthquakeListViewModel.Provider(service = ApiClient.apiService)
         ).get(EarthquakeListViewModel::class.java)
     }
 
@@ -75,7 +100,9 @@ class EarthquakeListFragment : Fragment() {
     }
 
     private fun fetchEarthquakes() {
-        viewModel.fetchEarthquakes()
+        // Load saved magnitude filter from SharedPreferences
+        val savedMagnitude = sharedPreferences.getFloat(PREF_KEY_MAGNITUDE, 0.0f)
+        viewModel.fetchEarthquakes(savedMagnitude.toDouble())
     }
 
     private fun setupScrollListener() {
@@ -95,14 +122,8 @@ class EarthquakeListFragment : Fragment() {
         })
     }
 
-    private fun setupFilterButton() {
-        filterBinding.btnFilter.setOnClickListener {
-            viewModel.filterEarthquakes("m1") // Change this to the selected filter logic
-        }
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        sharedPreferences = requireContext().getSharedPreferences("filter_prefs", Context.MODE_PRIVATE)
+        sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 }

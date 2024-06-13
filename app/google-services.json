@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "471155353955",
+    "project_id": "earhquakeqazaqedition",
+    "storage_bucket": "earhquakeqazaqedition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471155353955:android:2fc37301e272378d7f4b56",
+        "android_client_info": {
+          "package_name": "com.example.earthquakeqazaqedition"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqBKmv8-3LKIEic1ZMhcrvkebzTf9LRP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

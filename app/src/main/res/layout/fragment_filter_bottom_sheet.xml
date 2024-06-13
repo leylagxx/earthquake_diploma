@@ -1,65 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <!-- Если у вас есть данные, которые вы хотите использовать в этом макете -->
-    </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- Ваши элементы фильтрации -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Magnitude"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/mag_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
+            android:padding="16dp">
 
-            <RadioButton
-                android:id="@+id/radioAllEarthquakes"
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All Earthquakes" />
+                android:text="Magnitude"
+                android:textStyle="bold"/>
+
+        <RadioGroup
+                android:id="@+id/mag_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
 
             <RadioButton
-                android:id="@+id/radioM1Earthquakes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="M1.0+ Earthquakes" />
+                    android:id="@+id/radioAllEarthquakes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All Earthquakes"/>
 
             <RadioButton
-                android:id="@+id/radioM25Earthquakes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="M2.5+ Earthquakes" />
+                    android:id="@+id/radioM1Earthquakes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M1.0+ Earthquakes"/>
 
             <RadioButton
-                android:id="@+id/radioM45Earthquakes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="M4.5+ Earthquakes" />
+                    android:id="@+id/radioM25Earthquakes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M2.5+ Earthquakes"/>
+
+            <RadioButton
+                    android:id="@+id/radioM45Earthquakes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="M4.5+ Earthquakes"/>
 
         </RadioGroup>
 
 
         <Button
-            android:id="@+id/btnFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Filter"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp" />
+                android:id="@+id/btnFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="Filter"/>
     </LinearLayout>
 </layout>
