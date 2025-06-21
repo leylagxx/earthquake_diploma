@@ -13,7 +13,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Magnitude"
+                android:text="Магнитуда"
                 android:textStyle="bold"/>
 
         <RadioGroup
@@ -27,25 +27,25 @@
                     android:id="@+id/radioAllEarthquakes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All Earthquakes"/>
+                    android:text="Глобалды жерсілкіністер"/>
 
             <RadioButton
                     android:id="@+id/radioM1Earthquakes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="M1.0+ Earthquakes"/>
+                    android:text="M1.0+ Жерсілкіністер"/>
 
             <RadioButton
                     android:id="@+id/radioM25Earthquakes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="M2.5+ Earthquakes"/>
+                    android:text="M2.5+ Жерсілкіністер"/>
 
             <RadioButton
                     android:id="@+id/radioM45Earthquakes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="M4.5+ Earthquakes"/>
+                    android:text="M4.5+ Жерсілкіністер"/>
 
         </RadioGroup>
 
@@ -56,6 +56,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:text="Filter"/>
+                android:text="Фильтр"/>
     </LinearLayout>
 </layout>

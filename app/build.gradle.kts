@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.androidx.annotation)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.activity)
     val navVersion = "2.7.7"
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
@@ -76,9 +77,13 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
     // Import the BoM for the Firebase platform
+    implementation ("org.osmdroid:osmdroid-android:6.1.10")
+    implementation ("com.android.volley:volley:1.2.1")
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
+    implementation("org.osmdroid:osmdroid-android:6.1.10") // OpenStreetMap
+    implementation("com.android.volley:volley:1.2.1")     // Volley для HTTP-запросов
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies

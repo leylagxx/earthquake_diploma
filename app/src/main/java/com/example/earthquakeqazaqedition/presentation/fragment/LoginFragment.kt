@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.earthquakeqazaqedition.R
-import com.example.earthquakeqazaqedition.databinding.FragmentEarthquakeListBinding
 import com.example.earthquakeqazaqedition.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,17 +29,19 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
-        with(binding){
+
+        with(binding) {
             loginButton.setOnClickListener {
                 val email = email.text.toString()
                 val password = password.text.toString()
                 loginUser(email, password)
             }
             signUpText.setOnClickListener {
-                replaceFragment(RegisterFragment())
+                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
         }
     }
+
     private fun loginUser(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
             auth.signInWithEmailAndPassword(email, password)
@@ -51,7 +53,7 @@ class LoginFragment : Fragment() {
                                 .addOnSuccessListener { document ->
                                     val username = document.getString("username")
                                     Toast.makeText(requireContext(), "Welcome $username", Toast.LENGTH_SHORT).show()
-                                    replaceFragment(ProfileFragment())
+                                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
                                 }
                                 .addOnFailureListener { e ->
                                     Toast.makeText(requireContext(), "Failed to retrieve user data: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -65,10 +67,4 @@ class LoginFragment : Fragment() {
             Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun replaceFragment(fragment: Fragment) {
-
-
-
-    }
-
 }

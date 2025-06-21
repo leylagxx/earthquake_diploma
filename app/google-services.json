@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "471155353955",
-    "project_id": "earhquakeqazaqedition",
-    "storage_bucket": "earhquakeqazaqedition.appspot.com"
+    "project_number": "600079300892",
+    "project_id": "earhquakeqazaqedition-60df4",
+    "storage_bucket": "earhquakeqazaqedition-60df4.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:471155353955:android:2fc37301e272378d7f4b56",
+        "mobilesdk_app_id": "1:600079300892:android:aa6357920d115b511262d9",
+        "android_client_info": {
+          "package_name": "com.example.earhquakeqazaqedition"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhE5q2WppSqxmpskH9K4Pcj4OXv_P_stU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600079300892:android:2d415932b1e46f5a1262d9",
         "android_client_info": {
           "package_name": "com.example.earthquakeqazaqedition"
         }
@@ -15,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCqBKmv8-3LKIEic1ZMhcrvkebzTf9LRP8"
+          "current_key": "AIzaSyBhE5q2WppSqxmpskH9K4Pcj4OXv_P_stU"
         }
       ],
       "services": {

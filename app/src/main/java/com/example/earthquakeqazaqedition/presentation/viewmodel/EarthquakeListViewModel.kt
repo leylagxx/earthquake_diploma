@@ -54,14 +54,7 @@ class EarthquakeListViewModel(private val service: ApiService) : ViewModel() {
             }
         }
     }
-    fun fetchEarthquakes() {
-        if (isLoading) return
-        isLoading = true
-        _earthquakeListState.value = EarthquakeListState.Loading(true)
-        _isLoadingMoreItems.value = true
-        fetchEarthquakesInternal(currentOffset)
-        currentOffset += itemsPerPage
-    }
+
 
     fun loadMoreItems() {
         if (isLoading) return

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="All Earthquakes"
+    <item android:title="Тізім"
         android:id="@+id/earthquakeListFragment"
         android:icon="@drawable/baseline_list_alt_24"/>
-    <item android:title="profile"
+    <item android:title="Болжау"
         android:id="@+id/loginFragment"
         android:icon="@drawable/baseline_adf_scanner_24"/>
+    <item android:title="Карта"
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/baseline_adf_scanner_24"/>
+
 </menu>

@@ -100,7 +100,6 @@ class EarthquakeListFragment : Fragment() {
     }
 
     private fun fetchEarthquakes() {
-        // Load saved magnitude filter from SharedPreferences
         val savedMagnitude = sharedPreferences.getFloat(PREF_KEY_MAGNITUDE, 0.0f)
         viewModel.fetchEarthquakes(savedMagnitude.toDouble())
     }

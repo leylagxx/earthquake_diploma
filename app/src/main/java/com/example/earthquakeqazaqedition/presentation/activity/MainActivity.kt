@@ -15,7 +15,6 @@ import com.example.earthquakeqazaqedition.databinding.ActivityMainBinding
 import com.example.earthquakeqazaqedition.presentation.fragment.EarthquakeListFragment
 import com.example.earthquakeqazaqedition.presentation.fragment.FilterBottomSheetFragment
 import com.example.earthquakeqazaqedition.presentation.fragment.LoginFragment
-import com.example.earthquakeqazaqedition.presentation.fragment.MapsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.firebase.FirebaseApp
@@ -35,7 +34,14 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         setupWithNavController(bottomNavigationView, navController)
     }
-    private fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
 
+
+    private fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.mainContainer, fragment)
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        transaction.commit()
     }
 }

@@ -31,21 +31,21 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="20sp"
-                    tools:text="magnituda"
+                    tools:text="магнитуда"
                     android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="17sp"
-                    tools:text="time"
+                    tools:text="уақыт"
                     android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="17sp"
-                    tools:text="location"
+                    tools:text="орын"
                     android:textColor="@color/black"/>
             </LinearLayout>
 

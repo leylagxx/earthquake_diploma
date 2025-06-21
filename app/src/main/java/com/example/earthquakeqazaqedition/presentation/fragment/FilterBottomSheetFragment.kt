@@ -53,7 +53,6 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
         val radioGroup: RadioGroup = view.findViewById(R.id.mag_filter)
         val btnFilter: Button = view.findViewById(R.id.btnFilter)
 
-        // Load saved filter value and set the corresponding radio button
         val savedMagnitude = sharedPreferences.getFloat(PREF_KEY_MAGNITUDE, 0.0f)
         when (savedMagnitude) {
             0.0f -> radioGroup.check(R.id.radioAllEarthquakes)
