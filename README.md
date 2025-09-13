@@ -47,6 +47,14 @@
 - Интеграция IoT-датчиков и офлайн-режим  
 - Улучшение безопасности (шифрование данных, уровни доступа)
 
+## Screenshots
+
+
+### Employer Panel
+![Employer Panel](images/Picture1.png)
+![Employer Panel](images/Picture2.png)
+![Employer Panel](images/Picture3.png)
+![Employer Panel](images/Picture4.png)
 ## Contact
 
 Если есть вопросы или предложения по сотрудничеству, пишите:  
