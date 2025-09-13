@@ -50,7 +50,6 @@
 ## Screenshots
 
 
-### Employer Panel
 ![Employer Panel](images/Picture1.png)
 ![Employer Panel](images/Picture2.png)
 ![Employer Panel](images/Picture3.png)
